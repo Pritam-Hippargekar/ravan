@@ -1,0 +1,33 @@
+server:
+  port: 8088
+  servlet:
+    context-path: /ravan/
+
+#logging:
+#  level:
+#    root: DEBUG
+#    org.springframework.web: DEBUG
+
+source:
+  file:
+    name: yml.txt
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/testdb?useSSL=false
+    driver-class-name: com.mysql.cj.jdbc.Driver      #com.mysql.jdbc.Driver
+    username: root
+    password: Ayushman@358
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+
+
+  # Hibernate ddl auto (create, create-drop, validate, update)
+
