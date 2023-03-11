@@ -1,0 +1,50 @@
+1) ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+   Future<String> result = executorService.submit(() -> {
+       delay(5000); //simulate network call
+       return "{\"result\":\"success\"}";
+   });
+
+   IntStream.range(1, 10).forEach(i -> {
+       delay(100);
+       System.out.println("Doing useful work");
+   });
+   System.out.println(result.get());
+2) public Future<String> getResultOverNetwork() {
+       CompletableFuture<String> future = new CompletableFuture<>();
+       new Thread(() -> {
+           delay(5000); //simulate network call
+           future.complete("{\"result\":\"success\"}");
+       }).start();
+       return future;
+   }
+   Future<String> future = getResultOverNetwork();
+   IntStream.range(1, 10).forEach(i -> {
+       delay(100);
+       System.out.println("Doing useful work");
+   });
+   System.out.println(future.get());
+3)public Future<String> getResultOverNetwork() {
+      return CompletableFuture.supplyAsync(() -> {
+          delay(5000);
+          return "{\"result\":\"success\"}";
+      });
+  }
+4) public String[] getFruits() {
+       delay(1500); //simulate network latency
+       return new String[]{"apple", "apricot", "banana"};
+   }
+
+   public String[] getVeggies() {
+       delay(2000); //simulate network latency
+       return new String[]{"broccoli", "brussels sprout"};
+   }
+import static java.util.concurrent.CompletableFuture.supplyAsync;
+
+CompletableFuture<Void> future = supplyAsync(itemService::getFruits).
+        thenCombine(supplyAsync(itemService::getVeggies),
+        (fruits, veggies) -> Stream.concat(Arrays.stream(fruits), Arrays.stream(veggies))
+).thenAccept(items -> items.forEach(System.out::println));
+future.join();
+The returned Future is of type Void because thenAccept() consumes the array. Therefore there’s no need to call get() (although it is possible) and calling join() will suffice.
+join() - Returns the result value when complete, or throws an (unchecked) exception if completed exceptionally.

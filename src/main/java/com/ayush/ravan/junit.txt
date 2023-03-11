@@ -1,0 +1,5 @@
+https://asbnotebook.com/spring-boot-rest-controller-junit-test-example/
+https://www.scaler.com/topics/spring-boot/mockito-spring-boot/
+https://medium.com/javarevisited/spring-boot-2-junit-5-mockito-d8e2e5c8a90d
+https://thepracticaldeveloper.com/guide-spring-boot-controller-tests/
+https://hellokoding.com/spring-boot-test-service-layer-example-with-mockitos-mock-and-injectmock/
